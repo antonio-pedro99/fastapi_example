@@ -1,4 +1,4 @@
-# fastapi_example
+# Flutter App Notes with FastApi as backend
 
 A new Flutter project.
 
