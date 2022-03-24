@@ -1,6 +1,6 @@
 # Flutter App Notes with FastApi as backend
 
-A new Flutter project.
+A simple flutter application to maintain basic personal notes. The backend of this app was built with FastAPI and you can find it here https://github.com/antonio-pedro99/fastapi_notes
 
 ## Getting Started
 
