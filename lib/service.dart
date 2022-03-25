@@ -38,15 +38,26 @@ class Services {
     }
   }
 
-  // ignore: non_constant_identifier_names
-  static Future<String> deleteNote(int note_id) async {
-    final response = await http.delete(Uri.parse(
-        'https://notes-backend-flutter.herokuapp.com/notes/$note_id'));
+  static Future<String> deleteNote(int noteId) async {
+    final response = await http.delete(
+        Uri.parse('https://notes-backend-flutter.herokuapp.com/notes/$noteId'));
 
     if (response.statusCode == 200) {
       return response.body;
     } else {
       throw Exception("Failed to delete");
+    }
+  }
+
+  static Future<String> updateNote(int noteId, bool value) async {
+    final response = await http.put(
+        Uri.parse('https://notes-backend-flutter.herokuapp.com/notes/$noteId'),
+        body: json.encode({"completed": value}));
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw Exception("Can't update");
     }
   }
 }

@@ -1,40 +1,34 @@
-import 'package:fastapi_example/search.dart';
 import 'package:fastapi_example/service.dart';
 import 'package:flutter/material.dart';
-import 'package:fastapi_example/Note.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'Note.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class SearchPage extends StatefulWidget {
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "Urbanist"),
-      home: const MyHomePage(title: 'My Notes'),
-    );
-  }
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _SearchPageState extends State<SearchPage> {
   late Future<List<Note>> notes;
+
   @override
   void initState() {
     super.initState();
     notes = Services.fetchNotes();
+  }
+
+  List<Note>? search(String text) {
+    notes.then((value) {
+      List<Note>? result;
+      int index = value.indexWhere((element) => element.text == text);
+      Note note = value[index];
+      result!.add(note);
+      value = result;
+    });
+
+    return null;
   }
 
   Future<Null> organize() async {
@@ -47,21 +41,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
-    bool? done = false;
+    TextEditingController controllerText = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const SearchPage();
-                }));
-              },
-              icon: const Icon(Icons.search))
-        ],
+        title: TextField(
+          decoration: const InputDecoration(hintText: "Search"),
+          controller: controllerText,
+          onChanged: (value) {
+            setState(() {
+              print("Hello");
+            });
+          },
+        ),
+        centerTitle: true,
       ),
       body: SafeArea(
           child: Container(
@@ -126,57 +119,6 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
       )),
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(
-            Icons.add,
-          ),
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: const Text("Add new a note"),
-                    content: Container(
-                      padding: const EdgeInsets.all(8),
-                      height: 115,
-                      child: Column(
-                        children: [
-                          TextField(
-                            controller: controller,
-                          ),
-                          Row(
-                            children: [
-                              const Text(
-                                "Status",
-                              ),
-                              Checkbox(
-                                  value: done,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      done = value;
-                                    });
-                                  })
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            setState(() {
-                              Note _note =
-                                  Note(text: controller.text, completed: done);
-                              Services.createrNote(_note);
-                              organize();
-                              Navigator.pop(context);
-                            });
-                          },
-                          child: const Text("Save"))
-                    ],
-                  );
-                });
-          }),
     );
   }
 }
