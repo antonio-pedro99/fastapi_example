@@ -18,4 +18,4 @@ A simple flutter application to maintain basic personal notes. The backend of th
 ![image](https://user-images.githubusercontent.com/42675180/160121462-84fcd94b-c27b-4a41-b202-18872fb177c6.png)
 
 
-Check the backend docs at https://github.com/antonio-pedro99/fastapi_notes/docs
+Check the backend docs at https://notes-backend-flutter.herokuapp.com/docs
