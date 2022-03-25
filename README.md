@@ -2,10 +2,16 @@
 
 A simple flutter application to maintain basic personal notes. The backend of this app was built with FastAPI and you can find it here https://github.com/antonio-pedro99/fastapi_notes
 
+
 ## Flutter APP
 
-![image](https://user-images.githubusercontent.com/42675180/160121231-cbc19c90-c77a-4007-99ea-491278c381b7.png)
+#### Home Page
 
+![image](https://user-images.githubusercontent.com/42675180/160121654-bd5fa6bd-4954-46ff-a9de-c33841899bd0.png)
+
+#### Add New Note
+
+![image](https://user-images.githubusercontent.com/42675180/160121825-62695295-72e7-4f46-bb7f-73f4161b96f1.png)
 
 ## API call example
 
